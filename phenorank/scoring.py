@@ -195,21 +195,3 @@ def propagate_scores(p, W, r=0.5, ni=10):
     p = (1 - r) * (W * p) + r * p0
 
   return p
-
-
-
-def collapse_omims(gc, genes, omims):
-  """
-  return an array of |-seperated OMIM IDs associated with each gene
-
-  Args:
-    gc: a sparse matrix containing 1 if the gene is associated with the OMIM ID and 0 otherwise
-    genes: a list of gene names
-    omims: a list of OMIM ID
-
-  Returns:
-    an array of |-sepearted OMIM IDs associated with each gene
-  """
-  omims = np.array(omims)
-  genes_omims = ["|".join(omims[np.where(gc[g].toarray()[0] == 1)]) for g in range(len(genes))]
-  return pd.Series(genes_omims, index=genes)

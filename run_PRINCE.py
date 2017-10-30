@@ -15,8 +15,8 @@ import getopt
 import logging
 import numpy as np
 import pandas as pd
+import phenorank
 import sys
-import prince
 
 
 
@@ -67,7 +67,7 @@ def main(argv):
   logger.info("Output filename: {}".format(filename_output))
 
   # run prince
-  gene_scores = prince.run_prince(omim_obs, a=a, n=n, c=c, gene_mask=gene_mask)
+  gene_scores = phenorank.prince.run_prince(omim_obs, a=a, n=n, c=c, gene_mask=gene_mask)
   gene_scores.to_csv(filename_output, header=True, sep="\t", index=False)
 
   # complete log

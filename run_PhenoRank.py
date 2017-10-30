@@ -80,7 +80,7 @@ def main(argv):
 
   # run PhenoRank
   gene_scores = phenorank.phenorank.run_phenorank(omim_obs, phenotypes_obs, nperm, r, ni, gene_mask, include_h=not mouse_only, include_m=not human_only, filename_output=filename_output)
-  gene_scores.to_csv(filename_output, header=True, sep="\t", index=False, columns=["GENE", "OMIM_ALL", "SCORE_UNRANKED_UNPROP", "SCORE_UNRANKED_PROP", "SCORE_RANKED_PROP", "PVALUE"])
+  gene_scores.to_csv(filename_output, header=True, sep="\t", index=False, columns=["GENE", "SCORE_UNRANKED_UNPROP", "SCORE_UNRANKED_PROP", "SCORE_RANKED_PROP", "PVALUE"])
 
   # complete log
   logger.info("")

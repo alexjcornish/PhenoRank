@@ -143,7 +143,6 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
 
   # format output
   logger.info("Formatting results...")
-  collapsed_omims = scoring.collapse_omims(gc_h, genes, omims) # use to add OMIM IDs but adds 10 seconds to run time
-  res = pd.DataFrame({"GENE": pd.Series(genes, index=genes), "OMIM_IDS_ALL": collapsed_omims, "SCORE_UNRANKED_UNPROP": pd.Series(score_unprop, index=genes), "SCORE_UNRANKED_PROP": pd.Series(score_unranked_prop, index=genes), "SCORE_RANKED_PROP": pd.Series(score_obs, index=genes), "PVALUE": pd.Series(pvalues, index=genes)})
+  res = pd.DataFrame({"GENE": pd.Series(genes, index=genes), "SCORE_UNRANKED_UNPROP": pd.Series(score_unprop, index=genes), "SCORE_UNRANKED_PROP": pd.Series(score_unranked_prop, index=genes), "SCORE_RANKED_PROP": pd.Series(score_obs, index=genes), "PVALUE": pd.Series(pvalues, index=genes)})
 
   return res
