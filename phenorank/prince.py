@@ -23,7 +23,7 @@ import scoring
 
 
 
-def compute_condition_scores(id, pheno_sim, c):
+def compute_condition_scores(id, pheno_sim, c, factor):
   """
   score diseases by their phenotypic similarity to the disease ID
 
@@ -31,13 +31,13 @@ def compute_condition_scores(id, pheno_sim, c):
     id: the disease ID (the same ID format as pheno_sim)
     pheno_sim: a pandas DataFrame of phenotype similarity scores
     c: the value of parameter c
+    factor: pheno_sim values have been scaled to values between 0 and this value (to save space)
 
   Returns:
     a dictionary of disease ID-phenotype similarity score key-value pairs
   """
 
   d = np.log(9999) # defined in Vanunu et al. 2010 (PLOS Computational Biology)
-  factor = 100 # values in PhenoSim.tsv were scaled to integers between 0 and 100 to reduce storage space
   keys = pheno_sim[id].index.tolist()
   values = pheno_sim[id].tolist()
   values = 1 / (1 + (np.exp([c * i / factor for i in values] + d)))
@@ -52,7 +52,7 @@ def compute_gene_pheno_scores(gc, condition_score):
   Args:
     gc: a dictionary of gene-OMIM list key-value pairs
     condition_score: a dictionary of OMIM-phenotype similarity scores for the disease of interest
-
+``
   Returns:
     a pandas Series of scores for each gene in gc
   """
@@ -70,7 +70,7 @@ def compute_gene_pheno_scores(gc, condition_score):
 
 
 
-def run_prince(condition, a, n, c, gene_mask=None, dir_data="data_prince"):
+def run_prince(condition, a, n, c, factor=100, gene_mask=None, dir_data="data_prince"):
   """
   run the main PRINCE function
 
@@ -79,6 +79,7 @@ def run_prince(condition, a, n, c, gene_mask=None, dir_data="data_prince"):
     a: the value of parameter alpha used
     n: the number of iterations to completed
     c: the value of parameter c used
+    factor: pheno_sim values have been scaled to values between 0 and this value (to save space)
     gene_mask: a gene to mask
     dir_data: path to the data, used for testing
 
@@ -111,7 +112,7 @@ def run_prince(condition, a, n, c, gene_mask=None, dir_data="data_prince"):
        pass
 
   # score genes
-  condition_score = compute_condition_scores(condition, pheno_sim, c)
+  condition_score = compute_condition_scores(condition, pheno_sim, c, factor)
   gene_pheno_scores = compute_gene_pheno_scores(gc, condition_score)
 
   # propagate scores

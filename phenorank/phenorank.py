@@ -112,7 +112,7 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
   if gene_mask:
     gene_mask_ind = genes.index(gene_mask)
   if omim_obs:
-    omim_obs_ind = omim.index(omim_obs)
+    omim_obs_ind = omims.index(omim_obs)
   if phenotypes_obs:
     phenotypes_obs_ind = [phenotypes.index(phenotype) for phenotype in phenotypes_obs]
   else:
@@ -133,7 +133,7 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
   score_sim = np.empty((nperm, len(score_obs))) # empty array to hold scores
   for n in range(nperm):
     pheno_sim_ind = scoring.simulate_disease(len(phenotypes_obs_ind), pheno_cooccur)
-    tmp, tmp, score_sim[n] = scoring.score_genes(pheno_sim_ind, pheno_ancestors, pheno_ic, omim_ic, pheno_condition_ic_matrix, gc_h, gc_m, W, r, ni, include_h, include_m)
+    tmp, tmp, score_sim[n] = scoring.score_genes(pheno_sim_ind, pheno_ancestors, pheno_ic, omim_ic, pheno_omim_ic_matrix, gc_h, gc_m, W, r, ni, include_h, include_m)
     if n != 0 and (n + 1) % 100 == 0: logger.info("Scoring genes for simulated sets of disease phenotype terms ({}/{} sets completed)...".format(n + 1, nperm))
 
   # compute p-values
@@ -143,7 +143,7 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
 
   # format output
   logger.info("Formatting results...")
-  collapsed_omims = scoring.collapse_conditions(gc_h, genes, omims) # use to add OMIM IDs but adds 10 seconds to run time
+  collapsed_omims = scoring.collapse_omims(gc_h, genes, omims) # use to add OMIM IDs but adds 10 seconds to run time
   res = pd.DataFrame({"GENE": pd.Series(genes, index=genes), "OMIM_IDS_ALL": collapsed_omims, "SCORE_UNRANKED_UNPROP": pd.Series(score_unprop, index=genes), "SCORE_UNRANKED_PROP": pd.Series(score_unranked_prop, index=genes), "SCORE_RANKED_PROP": pd.Series(score_obs, index=genes), "PVALUE": pd.Series(pvalues, index=genes)})
 
   return res

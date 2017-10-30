@@ -1,6 +1,6 @@
 PhenoRank
 =====================
-**Reducing study bias in gene prioritisation through simulation**
+Reducing study bias in gene prioritisation through simulation
 
 
 PhenoRank reference

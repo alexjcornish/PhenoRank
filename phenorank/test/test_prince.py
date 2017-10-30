@@ -29,7 +29,7 @@ class test_run_prince(unittest.TestCase):
 
   def test_run_prince_toy(self):
     # run function
-    output = phenorank.prince.run_prince("D2", a=0.5, n=10, c=-15, dir_data="test/data_prince/")
+    output = phenorank.prince.run_prince("D2", a=0.5, n=10, c=-15, factor=1, dir_data="test/data_prince/")
 
     # run tests
     self.assertTrue(isinstance(output, pd.DataFrame)) # 1
@@ -44,19 +44,19 @@ class test_run_prince(unittest.TestCase):
     self.assertEquals(output["GENE"]["ENSG6"], "ENSG6")
 
     # 5
-    self.assertEquals(output["Y"]["ENSG1"], 1.0)
-    self.assertEquals(output["Y"]["ENSG2"], 0.0)
-    self.assertEquals(output["Y"]["ENSG3"], 0.0)
-    self.assertEquals(output["Y"]["ENSG4"], 0.0)
-    self.assertEquals(output["Y"]["ENSG5"], 0.0)
-    self.assertEquals(output["Y"]["ENSG6"], 0.5)
+    self.assertAlmostEqual(output["Y"]["ENSG1"], 0.9969506, places=5)
+    self.assertAlmostEqual(output["Y"]["ENSG2"], 0.0, places=5)
+    self.assertAlmostEqual(output["Y"]["ENSG3"], 0.0, places=5)
+    self.assertAlmostEqual(output["Y"]["ENSG4"], 0.0, places=5)
+    self.assertAlmostEqual(output["Y"]["ENSG5"], 0.0, places=5)
+    self.assertAlmostEqual(output["Y"]["ENSG6"], 0.1531325, places=5)
 
     # 6
     self.assertTrue(output["SCORE"]["ENSG1"] > output["SCORE"]["ENSG2"])
     self.assertEquals(output["SCORE"]["ENSG2"], output["SCORE"]["ENSG3"])
     self.assertEquals(output["SCORE"]["ENSG2"], output["SCORE"]["ENSG4"])
-    self.assertEquals(output["SCORE"]["ENSG5"], 0.0)
-    self.assertEquals(output["SCORE"]["ENSG6"], 0.5)
+    self.assertAlmostEqual(output["SCORE"]["ENSG5"], 0.0, places=5)
+    self.assertAlmostEqual(output["SCORE"]["ENSG6"], 0.1531325, places=5)
 
 class test_compute_condition_scores(unittest.TestCase):
   """
@@ -74,19 +74,19 @@ class test_compute_condition_scores(unittest.TestCase):
 
   def test_compute_condition_scores_toy(self):
     # run function
-    output = phenorank.prince.compute_condition_scores("D2", self.pheno_sim, c=-15)
+    output = phenorank.prince.compute_condition_scores("D2", self.pheno_sim, c=-15, factor=1)
 
     # run tests
     self.assertEquals(type(output), type({})) # 1
     self.assertEquals(len(output), 3) # 2
-    self.assertEquals(output["D1"], 0.1) # 2, 3
-    self.assertEquals(output["D2"], 1.0) # 2, 3
-    self.assertEquals(output["D3"], 0.3) # 2, 3
+    self.assertAlmostEqual(output["D1"], 0.0004480129, places=5) # 2, 3
+    self.assertAlmostEqual(output["D2"], 0.9969506, places=5) # 2, 3
+    self.assertAlmostEqual(output["D3"], 0.008922289, places=5) # 2, 3
 
   def test_compute_condition_scores_error(self):
 
     with self.assertRaises(KeyError):
-      phenorank.prince.compute_condition_scores("D0", self.pheno_sim, c=-15)
+      phenorank.prince.compute_condition_scores("D0", self.pheno_sim, c=-15, factor=1)
 
 
 

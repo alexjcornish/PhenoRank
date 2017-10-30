@@ -53,17 +53,11 @@ class test_phenorank(unittest.TestCase):
     self.assertEquals(output["GENE"]["ENSG7"], "ENSG7")
 
     # 5
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG1"], "DOID:1")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG2"], "DOID:2")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG3"], "")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG4"], "")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG7"], "")
-
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG1"], "MGI:1")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG2"], "")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG3"], "MGI:4")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG4"], "MGI:5")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG7"], "MGI:2")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG1"], "DOID:1")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG2"], "DOID:2")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG3"], "")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG4"], "")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG7"], "")
 
     # 6
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG1"], 5.0, places=3)
@@ -82,17 +76,11 @@ class test_phenorank(unittest.TestCase):
     self.assertItemsEqual(output.shape, (5, 6)) # 2
 
     # 5, 6
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG1"], "")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG2"], "DOID:2")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG3"], "")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG4"], "")
-    self.assertEquals(output["CONDITIONS_ALL"]["ENSG7"], "")
-
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG1"], "MGI:1")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG2"], "")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG3"], "MGI:4")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG4"], "MGI:5")
-    #self.assertEquals(output["MOUSE_ALL"]["ENSG7"], "MGI:2")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG1"], "")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG2"], "DOID:2")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG3"], "")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG4"], "")
+    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG7"], "")
 
     # 8, 11
     # these exact results have been calculated by hand
