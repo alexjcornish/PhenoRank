@@ -75,10 +75,6 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
   gc_m = cPickle.load(con)
   con.close()
 
-  con = open(pkg_resources.resource_filename("phenorank", dir_data + "/cg_omim_do.tsv"), "r")
-  cg_h = inout.import_dictionary(con, split_by="|", key_int=False, value_int=False)
-  con.close()
-
   con = open(pkg_resources.resource_filename("phenorank", dir_data + "/phenotype_ancestors.tsv"), "r")
   pheno_ancestors = inout.import_dictionary(con, split_by="|", key_int=True, value_int=True)
   con.close()
@@ -121,9 +117,6 @@ def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_
   # if a gene to mask has been specified, and if it is associated with the OMIM ID, mask
   if gene_mask:
     gc_h[gene_mask_ind, omim_obs_ind] = 0
-    if omim_obs in cg_h:
-      if gene_mask in cg_h[omim_obs]:
-        cg_h[omim_obs].remove(gene_mask)
 
   # score genes using updated phenotypes
   logger.info("Scoring genes for query disease...")

@@ -24,12 +24,9 @@ class test_phenorank(unittest.TestCase):
     1: outputs pandas dataframe
     2: pandas dataframe contains the correct number of dimensions
     3: output contains correct genes
-    5: correct human conditions identified as associated with each gene, missing conditions are NaN
-    6: correct mouse conditions identified as associated with each gene, missing conditions are NaN
-    7: correctly computes simGIC
-    8: correctly propagates simGIC (just for none)
-    9: correctly computes p-value (just for none)
-    10: masking works
+    4: correctly computes phenotypic relevance scores (SCORE_UNRANKED_UNPROP)
+    5 correctly propagates scores (SCORE_RANKED_PROP)
+    6: masking works
   """
 
   def test_phenorank_no_masking(self):
@@ -43,7 +40,7 @@ class test_phenorank(unittest.TestCase):
 
     # run tests
     self.assertTrue(isinstance(output, pd.DataFrame)) # 1
-    self.assertItemsEqual(output.shape, (5, 6)) # 2
+    self.assertItemsEqual(output.shape, (5, 5)) # 2
 
     # 3
     self.assertEquals(output["GENE"]["ENSG1"], "ENSG1")
@@ -52,14 +49,14 @@ class test_phenorank(unittest.TestCase):
     self.assertEquals(output["GENE"]["ENSG4"], "ENSG4")
     self.assertEquals(output["GENE"]["ENSG7"], "ENSG7")
 
-    # 5
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG1"], "DOID:1")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG2"], "DOID:2")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG3"], "")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG4"], "")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG7"], "")
+    # 4
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG1"], 1.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG2"], 0.2, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG3"], 0.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG4"], 0.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG7"], 0.0, places=3)
 
-    # 6
+    # 5
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG1"], 5.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG2"], 4.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG3"], 2.5, places=3)
@@ -73,24 +70,22 @@ class test_phenorank(unittest.TestCase):
 
     # run tests
     self.assertTrue(isinstance(output, pd.DataFrame)) # 1
-    self.assertItemsEqual(output.shape, (5, 6)) # 2
+    self.assertItemsEqual(output.shape, (5, 5)) # 2
 
-    # 5, 6
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG1"], "")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG2"], "DOID:2")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG3"], "")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG4"], "")
-    self.assertEquals(output["OMIM_IDS_ALL"]["ENSG7"], "")
+    # 4
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG1"], 0.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG2"], 0.2, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG3"], 0.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG4"], 0.0, places=3)
+    self.assertAlmostEqual(output["SCORE_UNRANKED_UNPROP"]["ENSG7"], 0.0, places=3)
 
-    # 8, 11
+    # 5,6
     # these exact results have been calculated by hand
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG1"], 4.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG2"], 5.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG3"], 2.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG4"], 2.0, places=3)
     self.assertAlmostEqual(output["SCORE_RANKED_PROP"]["ENSG7"], 2.0, places=3)
-
-
 
 if __name__ == "__main__":
   unittest.main()
