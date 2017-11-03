@@ -51,16 +51,16 @@ def score_genes(disease_pheno, pheno_ancestors, pheno_ic, omim_ic, pheno_omim_ic
   gene_scores_m = gc_m * omim_scores
 
   n_omims_h = np.array(gc_h.sum(1))[:,0]
-  n_omims_m = np.array(gc_m.sum(1))[:,0]
+  n_mutants_m = np.array(gc_m.sum(1))[:,0]
   n_omims_h[n_omims_h == 0] = 1
-  n_omims_m[n_omims_m == 0] = 1
+  n_mutants_m[n_mutants_m == 0] = 1
 
   if include_h and include_m:
-    gene_scores = gene_scores_h / n_omims_h + gene_scores_m / n_omims_m
+    gene_scores = gene_scores_h / n_omims_h + gene_scores_m / n_mutants_m
   if include_h and not include_m:
     gene_scores = gene_scores_h / n_omims_h
   if not include_h and include_m:
-    gene_scores = gene_scores_m / n_omims_m
+    gene_scores = gene_scores_m / n_mutants_m
 
   gene_scores_prop = propagate_scores(gene_scores, W, r, ni)
 

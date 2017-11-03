@@ -42,7 +42,7 @@ def main(argv):
     if opt in ("-o", "--file_output"): filename_output = arg
     elif opt in ("-d", "--omim_id"): omim_obs = arg
     elif opt in ("-a", "--a"): a = float(arg)
-    elif opt in ("-n", "--n"): n = float(arg)
+    elif opt in ("-n", "--n"): n = int(arg)
     elif opt in ("-c", "--c"): c = float(arg)
     elif opt in ("-g", "--gene_mask"): gene_mask = arg
 

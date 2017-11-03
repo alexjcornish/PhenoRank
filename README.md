@@ -13,7 +13,7 @@ Package requirements
 - A Linux or Mac operating system.
 - At least 1Gb free disk space.
 - Python version 2.7.
-- Python packages: numpy (PhenoRank tested with version 1.11.0), pandas (PhenoRank tested with version 0.19.0), scipy (PhenoRank tested with version 0.18.1).
+- Python packages: numpy (tested with version 1.11.0), pandas (tested with version 0.19.0), scipy (tested with version 0.18.1), sklearn (tested with version 0.0).
 
 
 Package installation
