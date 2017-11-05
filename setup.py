@@ -7,7 +7,7 @@ with open('LICENSE') as f:
 
 setup(
     name='phenorank',
-    version='0.1.3',
+    version='0.1.5',
     description='Reducing study bias in gene prioritisation through simulation',
     author='Alex J. Cornish',
     url='http://alexjcornish.com/',
