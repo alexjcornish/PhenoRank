@@ -22,9 +22,7 @@ import sys
 import inout
 import scoring
 
-
-
-def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.5, ni=10, gene_mask=None, include_h=True, include_m=True, dir_data="data_phenorank", filename_output="~"):
+def run_phenorank(omim_obs, phenotypes_obs=None, nperm=1000, r=0.1, ni=20, gene_mask=None, include_h=True, include_m=True, dir_data="data_phenorank", filename_output="~"):
   """
   run the main PhenoRank function
 

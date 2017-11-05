@@ -18,8 +18,6 @@ import pandas as pd
 import sys
 import phenorank
 
-
-
 def main(argv):
   """
   run PhenoRank from the command line
@@ -32,8 +30,8 @@ def main(argv):
   omim_obs = None # OMIM ID
   phenotypes_obs = None
   nperm = 1000
-  r = 0.5
-  ni = 10
+  r = 0.1
+  ni = 20
   gene_mask = None
   human_only = False
   mouse_only = False

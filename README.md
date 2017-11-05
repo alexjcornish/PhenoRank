@@ -67,11 +67,11 @@ Number of simulated diseases to use. Default is *1,000*.
 
 
 ##### `-r --r`
-Restart probability to use in the RWR algorithm. Default is *0.5*.
+Restart probability to use in the RWR algorithm. Default is *0.1*.
 
 
 ##### `-i --ni`
-Number of iterations of the RWR algorithm to complete. Default is *10*.
+Number of iterations of the RWR algorithm to complete. Default is *20*.
 
 
 ##### `-g --gene_mask`
@@ -117,7 +117,7 @@ Alpaca parameter value to use. Default is *0.5*.
 
 
 ##### `-n --n`
-Number of iterations to complete. Default is *10*.
+Number of iterations to complete. Default is *20*.
 
 
 ##### `-c --c`

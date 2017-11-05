@@ -21,8 +21,6 @@ import sys
 import inout
 import scoring
 
-
-
 def compute_condition_scores(id, pheno_sim, c, factor):
   """
   score diseases by their phenotypic similarity to the disease ID
@@ -42,8 +40,6 @@ def compute_condition_scores(id, pheno_sim, c, factor):
   values = pheno_sim[id].tolist()
   values = 1 / (1 + (np.exp([c * i / factor for i in values] + d)))
   return {keys[i]: values[i] for i in range(len(pheno_sim[id]))}
-
-
 
 def compute_gene_pheno_scores(gc, condition_score):
   """
@@ -67,8 +63,6 @@ def compute_gene_pheno_scores(gc, condition_score):
       except KeyError:
         pass
   return pd.Series(scores.values(), index=scores.keys())
-
-
 
 def run_prince(condition, a, n, c, factor=100, gene_mask=None, dir_data="data_prince"):
   """

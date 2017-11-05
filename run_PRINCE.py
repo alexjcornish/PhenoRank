@@ -18,8 +18,6 @@ import pandas as pd
 import phenorank
 import sys
 
-
-
 def main(argv):
   """
   run PRINCE from the command line
@@ -32,7 +30,7 @@ def main(argv):
   filename_output = None
   omim_obs = None
   a = 0.5
-  n = 10
+  n = 20
   c = -15
   gene_mask = None
 
@@ -73,8 +71,6 @@ def main(argv):
   # complete log
   logger.info("")
   logger.info("All done")
-
-
 
 if __name__ == "__main__":
   logger = logging.getLogger(__name__)
