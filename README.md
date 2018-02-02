@@ -5,7 +5,7 @@ Reducing study bias in gene prioritisation through simulation
 
 PhenoRank reference
 ----------
-[Cornish, A.J., David, A. and Sternberg M.J.E. **PhenoRank: reducing study bias in gene prioritisation through simulation**. Bioinformatics (2018).][3]
+[Cornish, A.J., David, A. and Sternberg M.J.E. PhenoRank: reducing study bias in gene prioritisation through simulation. Bioinformatics (2018).][3]
 
 
 Package requirements
