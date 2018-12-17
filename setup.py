@@ -10,7 +10,6 @@ setup(
     version='0.1.5',
     description='Reducing study bias in gene prioritisation through simulation',
     author='Alex J. Cornish',
-    url='http://alexjcornish.com/',
     license=license,
     packages=['phenorank'],
     package_dir={'phenorank': 'phenorank'},
